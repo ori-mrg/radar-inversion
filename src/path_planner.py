@@ -29,11 +29,15 @@ class PathPlanner:
             raise ValueError("Start or goal node not in the graph!")
 
         # A* algorithm initialization
-        open_set = PriorityQueue()
+        open_set = PriorityQueue() # Store nodes to be explored prioritised by f-score
         open_set.put((0, self.start))
-        came_from = {}
+        came_from = {} # Dictionary for each node points to the node it was reached from
+        
+        # g score to hold the cost of reaching each node from the start node
         g_score = {node: float('inf') for node in self.graph.nodes}
         g_score[self.start] = 0
+
+        # f score to hold the estimated total cost from start to goal through each node
         f_score = {node: float('inf') for node in self.graph.nodes}
         f_score[self.start] = self.heuristic_cost_estimate(self.start, self.goal)
 
